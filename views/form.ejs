@@ -1,0 +1,22 @@
+<script type="text/javascript">
+$(document).ready(function() {		
+	$('form#upload').ajaxForm({
+		complete: function(data) {
+			$('div.main').html(data.responseText);
+		}
+	}); 
+});
+</script>
+
+<div class="span12">
+	<% if (msg) { %>
+		<div class="alert-error">
+			<h2>I Am Error!</h2>
+			<p><%- msg %></p>
+		</div>
+	<% } %>
+	<form action="upload" method="post" id="upload" enctype="multipart/form-data">
+		<input type="file" name="profPhoto" />
+		<input type="submit" name="upload" value="Upload Photo" />
+	</form>
+</div>
