@@ -18,10 +18,11 @@ var options = {
 	processDir: processing,
 	uploadDir: uploaded,
 	versions: [  
-		{ "thmb": [32, 32] },   
-		{ "profile": [200, null] },  
-		{ "full": [null, null] }  
-	],  
+		{ "thmb": { w: 32, h: 32 } },   
+		{ "profile": { w: 200, h: null } },  
+		{ "full": { w: null, h: null } }  
+	],
+	separator: '_',  
 	namingConvention: 'date',
 	inputFields: ['profPhoto', 'other']
 }
