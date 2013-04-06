@@ -14,13 +14,18 @@
   <body>
 		<div class="container">
 			<h1><%= title %></h1>
-			<p>Welcome to Daniel's Awesome Cropper</p>
+			<p>Welcome to the Picsee Cropper</p>
 			<div class="row">
 				<div class="span12">
 					<% if (results) { %>
 						<div class="row">
 							<% results.forEach(function (result) { %>
-								<p><%- result %></p>
+								<% result.forEach(function (version) { %>
+								<div class="span12">
+									<p>Image: <em><%- version.image %></em> has been successfully saved!</em></p>
+									<img src="/photos/processed/<%- version.image %>" alt="<%- version.image %>" />
+								</div>
+								<% }) %>
 							<% }) %>
 						</div>
 					<% } %>

@@ -49,13 +49,14 @@ app.configure('development', function(){
 });
 
 app.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', msg: false });
+  res.render('index', { title: 'Express', results: false });
 });
 
 app.post('/upload', function(req, res, next) { 
 	picsee.upload(req, res, function(err, results) { 
+		console.log(results);
 		if (err) res.send(err);
-		res.render('index', { title: 'Success!', results: results });
+		res.render('index', { title: 'Success!', results: results || false });
 	})
 });
 
