@@ -9,20 +9,19 @@ var express = require('express')
 
 // Picsee options
 var root = __dirname;
-var sandbox = root + "/photos/sandbox/";
-var processing = root + "/photos/preprocess/";
-var uploaded = root + "/photos/uploaded/";
+var staging = root + "/photos/staging/";
+var processing = root + "/photos/processed/";
 
 var options = {
-	sandboxDir: sandbox,
+	stagingDir: staging,
 	processDir: processing,
-	uploadDir: uploaded,
 	versions: [  
 		{ "thmb": { w: 32, h: 32 } },   
 		{ "profile": { w: 200, h: null } },  
 		{ "full": { w: null, h: null } }  
 	],
 	separator: '_',  
+	directories: 'single',
 	namingConvention: 'date',
 	inputFields: ['profPhoto', 'other']
 }
@@ -54,8 +53,11 @@ app.get('/', function(req, res, next) {
 });
 
 app.post('/upload', function(req, res, next) { 
-	picsee.upload(req, res, function(msg) { res.send(msg); }); } 
-);
+	picsee.upload(req, res, function(err, results) { 
+		if (err) res.send(err);
+		res.render('index', { title: 'Success!', results: results });
+	})
+});
 
 app.post('/crop', picsee.crop);
 

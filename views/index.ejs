@@ -17,6 +17,13 @@
 			<p>Welcome to Daniel's Awesome Cropper</p>
 			<div class="row">
 				<div class="span12">
+					<% if (results) { %>
+						<div class="row">
+							<% results.forEach(function (result) { %>
+								<p><%- result %></p>
+							<% }) %>
+						</div>
+					<% } %>
 					<div class="row main">
 						<%- include form %>
 					</div>
