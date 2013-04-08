@@ -8,13 +8,19 @@ var express = require('express')
 	, picsee = require('picsee');
 
 // Picsee options
-var root = __dirname;
-var staging = root + "/photos/staging/";
-var processing = root + "/photos/processed/";
+var root = __dirname + '/public/';
+// For the sake of demo, keeping "staging" local to app, 
+// but PLEASE change this for your app for security reasons.
+var staging = root + 'images/staging/';
+var processing = 'images/processing/';
+var uploaded = 'images/uploaded/';
 
 var options = {
+	docRoot: root,
+	urlRoot: 'http://localhost:3000/',
 	stagingDir: staging,
 	processDir: processing,
+	uploadDir: uploaded,
 	versions: [  
 		{ "thmb": { w: 32, h: 32 } },   
 		{ "profile": { w: 200, h: null } },  
@@ -54,9 +60,8 @@ app.get('/', function(req, res, next) {
 
 app.post('/upload', function(req, res, next) { 
 	picsee.upload(req, res, function(err, results) { 
-		console.log(results);
 		if (err) res.send(err);
-		res.render('index', { title: 'Success!', results: results || false });
+		res.render('crop', { title: 'Save or Crop You Photos', results: results || false });
 	})
 });
 

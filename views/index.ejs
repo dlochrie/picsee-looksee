@@ -9,7 +9,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 		<script src="/javascripts/jquery.form.js"></script>
-		<script src="/javascripts/jcrop/js/jquery.Jcrop.min.js"></script>
+		<script src="/javascripts/jquery.Jcrop.min.js"></script>
   </head>
   <body>
 		<div class="container">
@@ -22,8 +22,8 @@
 							<% results.forEach(function (result) { %>
 								<% result.forEach(function (version) { %>
 								<div class="span12">
-									<p>Image: <em><%- version.image %></em> has been successfully saved!</em></p>
-									<img src="/photos/processed/<%- version.image %>" alt="<%- version.image %>" />
+									<p>Image: <em><%- version.image %></em> has been successfully saved!</p>
+									<img src="/images/processed/<%- version.image %>" alt="<%- version.image %>" />
 								</div>
 								<% }) %>
 							<% }) %>
