@@ -54,18 +54,24 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', function(req, res, next) {
+app.get('/', function (req, res, next) {
   res.render('index', { title: 'Express', results: false });
 });
 
-app.post('/upload', function(req, res, next) { 
-	picsee.upload(req, res, function(err, results) { 
+app.post('/upload', function (req, res, next) { 
+	picsee.upload(req, res, function (err, results) { 
+		console.log('err from upload', err);
+		console.log('results from upload', results);
 		if (err) res.send(err);
 		res.render('crop', { title: 'Save or Crop You Photos', results: results || false });
 	})
 });
 
-app.post('/crop', picsee.crop);
+app.post('/crop', function (req, res, next) {
+	picsee.crop(req, res, function (err, result) {
+		res.render('success', { title: 'Success!', result: result || false });
+	});
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
