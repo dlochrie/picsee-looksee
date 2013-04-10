@@ -15,11 +15,21 @@
 		<div class="container">
 			<h1><%= title %></h1>
 			<p>Welcome to the Picsee Cropper</p>
-			<div class="span12">			
-				<p>Success!!!</p>
-				<% results.forEach(function(result) { %>
-					<% result.image %>
-				<% }); %>
+			<div class="row">
+				<div class="span12">			
+					<p>Your Photo has been successfully cropped!</p>
+					<ul class="thumbnails">
+						<% results.forEach(function(result) { %>
+						<li class="span3">
+							<div class="thumbnail">
+								<img src="<%- result.url %>" alt="<%- result.name %>" />
+								<h4><%- result.name %></h4>
+								<p>Saved as: <%- result.path %></p>
+							</div>
+						</li>
+						<% }); %>
+					</ul>
+				</div>
 			</div>
 		</div>
   </body>

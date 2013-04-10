@@ -54,22 +54,31 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+
+/**
+ * Show Form
+ */
 app.get('/', function (req, res, next) {
   res.render('index', { title: 'Express', results: false });
 });
 
+/**
+ * Handle Upload and show Crop Form, or if err, return to Upload
+ */
 app.post('/upload', function (req, res, next) { 
 	picsee.upload(req, res, function (err, results) { 
-		console.log('err from upload', err);
-		console.log('results from upload', results);
 		if (err) res.send(err);
 		res.render('crop', { title: 'Save or Crop You Photos', results: results || false });
 	})
 });
 
+/**
+ * Handle Upload, or if err, return to Form
+ */
 app.post('/crop', function (req, res, next) {
-	picsee.crop(req, res, function (err, result) {
-		res.render('success', { title: 'Success!', result: result || false });
+	picsee.crop(req, res, function (err, results) {
+		if (err) res.send(err);
+		res.render('success', { title: 'Success!', results: results || false });
 	});
 });
 
