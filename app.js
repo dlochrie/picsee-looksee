@@ -58,7 +58,7 @@ app.configure('development', function(){
  * Show Form
  */
 app.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express', results: false });
+  res.render('index', { title: 'Demo Photo Uploader/Cropper', results: false });
 });
 
 /**
@@ -66,8 +66,8 @@ app.get('/', function (req, res, next) {
  */
 app.post('/upload', function (req, res, next) { 
 	picsee.upload(req, res, function (err, results) { 
-		if (err) res.send(err); // TODO: Return to form, flash error
-		res.render('crop', { title: 'Save or Crop You Photos', results: results || false });
+		if (err) res.send(err); 
+		res.render('crop', { title: 'Crop or Save Photo', results: results || false });
 	})
 });
 

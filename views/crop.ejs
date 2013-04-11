@@ -1,74 +1,55 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />		 
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/ui-lightness/jquery-ui.css" />
-		<link rel='stylesheet' href='/stylesheets/jquery.Jcrop.min.css' />		 
-		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-		<script src="/javascripts/jquery.form.js"></script>
-		<script src="/javascripts/jquery.Jcrop.min.js"></script>
-  </head>
-  <body>
-		<div class="container">
-			<h1><%= title %></h1>
-			<p>Welcome to the Picsee Cropper</p>
-			<div id="main">...</div>
-			<div class="span12">			
-				<% results.forEach(function (result) { %>	
-					<form action="crop" method="post" id="crop">
-						<fieldset>
-							<legend>Crop / Save</legend>
-							<ul class="thumbnails">
-								<li class="span4">
-									<div class="thumbnail">
-										<img class="pre-processed" src="<%- result.url %>" alt="<%- result.path %>" />
-									</div>
-								</li>
-							</ul>
-							<input type="hidden" name="coordx1" id="coordx1" />
-							<input type="hidden" name="coordy1" id="coordy1" />
-							<input type="hidden" name="coordx2" id="coordx2" />
-							<input type="hidden" name="coordy2" id="coordy2" />
-							<input type="hidden" name="w" id="w" />
-							<input type="hidden" name="h" id="h" />
-							<input type="hidden" name="image" value="<%- result.path %>" />
-							<div class="form-actions">
-								<button class="crop btn btn-primary">Apply</button>
-							</div>
-						</fieldset>
-						<script>
-							var offsetX, offsetY, cropW, cropH;
-							function updateCoords(c) {
-								$('input#coordx1').val(c.x)
-								$('input#coordy1').val(c.y)
-								$('input#coordx2').val(c.x2)
-								$('input#coordy2').val(c.y2)
-								$('input#w').val(c.w)
-								$('input#h').val(c.h)
-							}
-							$(function(){
-								$('.pre-processed').Jcrop({
-									aspectRatio: 1, // Only Squares
-									onChange: updateCoords,
-									onSelect: updateCoords,
-									trueSize: [<%- result.w %>, <%- result.h %>]
-								});
-							});
-							$('button#crop').on('click', function(e) {
-								e.preventDefault();
-								$('form#crop').ajaxForm({
-									complete: function(data) {
-										$('div.main').html(data.responseText);
-									}
-								});
-							});
-					</script>
-					</form>
-					<% }) %>
+<% results.forEach(function (result) { %>	
+	<form action="crop" method="post" id="crop">
+		<fieldset>
+			<legend>Crop / Save</legend>
+			<ul class="thumbnails">
+				<li class="span4">
+					<div class="thumbnail">
+						<img class="pre-processed" src="<%- result.url %>" alt="<%- result.path %>" />
+					</div>
+				</li>
+			</ul>
+			<input type="hidden" name="coordx1" id="coordx1" />
+			<input type="hidden" name="coordy1" id="coordy1" />
+			<input type="hidden" name="coordx2" id="coordx2" />
+			<input type="hidden" name="coordy2" id="coordy2" />
+			<input type="hidden" name="w" id="w" />
+			<input type="hidden" name="h" id="h" />
+			<input type="hidden" name="image" value="<%- result.path %>" />
+			<div class="form-actions">
+				<button class="crop btn btn-primary">Apply</button>
 			</div>
-		</div>
-  </body>
-</html>
+		</fieldset>
+	</form>
+	<script>
+		$(document).ready(function() {
+			var offsetX, offsetY, cropW, cropH;
+			function updateCoords(c) {
+				$('input#coordx1').val(c.x)
+				$('input#coordy1').val(c.y)
+				$('input#coordx2').val(c.x2)
+				$('input#coordy2').val(c.y2)
+				$('input#w').val(c.w)
+				$('input#h').val(c.h)
+			}
+			
+			$(function(){
+				$('.pre-processed').Jcrop({
+					aspectRatio: 1, // Only Squares
+					onChange: updateCoords,
+					onSelect: updateCoords,
+					trueSize: [<%- result.w %>, <%- result.h %>]
+				});
+			});
+
+			$('button#crop').on('click', function(e) {
+				e.preventDefault();
+				$('form#crop').ajaxForm({
+					complete: function(data) {
+						$('div.main').html(data.responseText);
+					}
+				});
+			});
+		});
+	</script>
+<% }) %>
