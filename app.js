@@ -54,7 +54,6 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-
 /**
  * Show Form
  */
@@ -67,7 +66,7 @@ app.get('/', function (req, res, next) {
  */
 app.post('/upload', function (req, res, next) { 
 	picsee.upload(req, res, function (err, results) { 
-		if (err) res.send(err);
+		if (err) res.send(err); // TODO: Return to form, flash error
 		res.render('crop', { title: 'Save or Crop You Photos', results: results || false });
 	})
 });
