@@ -1,6 +1,7 @@
 <%- include header %>
-<p>Your Photo has been successfully cropped!</p>
-<p>Click <a href="/">here</a> to Upload another photo.</p>
+<h2>Your Photo has been successfully cropped!</h2>
+<h3>Click <a href="/">here</a> to Upload another photo.</h3>
+
 <ul class="thumbnails">
 	<% results.forEach(function(result) { %>
 	<li class="span3">
@@ -12,4 +13,20 @@
 	</li>
 	<% }); %>
 </ul>
+
+<hr />
+
+<ul class="thumbnails">
+	<% results.forEach(function(result) { %>
+	<li class="span6">
+		<div class="thumbnail">
+			<img src="<%- result.url %>" alt="<%- result.name %>" />
+			<h4><%- result.name %></h4>
+			<p>Saved as: <%- result.path %></p>
+		</div>
+	</li>
+	<% }); %>
+</ul>
+
+
 <%- include footer %>

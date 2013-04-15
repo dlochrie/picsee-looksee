@@ -14,6 +14,7 @@ var root = __dirname + '/public/';
 var staging = root + 'images/staging/';
 var processing = 'images/processing/';
 var uploaded = 'images/uploaded/';
+var original = 'images/original/'
 
 var options = {
 	docRoot: root,
@@ -21,6 +22,7 @@ var options = {
 	stagingDir: staging,
 	processDir: processing,
 	uploadDir: uploaded,
+	originalDir: original,
 	versions: [  
 		{ "thmb": { w: 32, h: 32 } },   
 		{ "profile": { w: 200, h: null } },  
@@ -77,7 +79,13 @@ app.post('/upload', function (req, res, next) {
 app.post('/crop', function (req, res, next) {
 	picsee.crop(req, res, function (err, results) {
 		if (err) res.send(err);
-		res.render('success', { title: 'Success!', results: results || false });
+		var photos = []
+		results.map(function(result) {
+			result['original'] = picsee.getOriginal(result.name);
+			photos.push(result);
+		});
+		console.log('photos', photos);
+		res.render('success', { title: 'Success!', results: photos || false });
 	});
 });
 
