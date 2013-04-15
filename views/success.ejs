@@ -2,8 +2,12 @@
 <h2>Your Photo has been successfully cropped!</h2>
 <h3>Click <a href="/">here</a> to Upload another photo.</h3>
 
+<hr />
+
+<h4>Cropped Versions</h4>
+
 <ul class="thumbnails">
-	<% results.forEach(function(result) { %>
+	<% results.versions.forEach(function(result) { %>
 	<li class="span3">
 		<div class="thumbnail">
 			<img src="<%- result.url %>" alt="<%- result.name %>" />
@@ -16,17 +20,16 @@
 
 <hr />
 
+<h4>Original Photo</h4>
+
 <ul class="thumbnails">
-	<% results.forEach(function(result) { %>
 	<li class="span6">
 		<div class="thumbnail">
-			<img src="<%- result.url %>" alt="<%- result.name %>" />
-			<h4><%- result.name %></h4>
-			<p>Saved as: <%- result.path %></p>
+			<img src="<%- results.original.url %>" alt="<%- results.original.name %>" />
+			<h4><%- results.original.name %></h4>
+			<p>Saved as: <%- results.original.url %></p>
 		</div>
 	</li>
-	<% }); %>
 </ul>
-
 
 <%- include footer %>

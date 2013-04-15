@@ -77,14 +77,11 @@ app.post('/upload', function (req, res, next) {
  * Handle Upload, or if err, return to Form
  */
 app.post('/crop', function (req, res, next) {
+	var original = req.body.original || false;
 	picsee.crop(req, res, function (err, results) {
 		if (err) res.send(err);
-		var photos = []
-		results.map(function(result) {
-			result['original'] = picsee.getOriginal(result.name);
-			photos.push(result);
-		});
-		console.log('photos', photos);
+		var photos = { versions: results, 
+			original: picsee.getOriginal(original) };
 		res.render('success', { title: 'Success!', results: photos || false });
 	});
 });
