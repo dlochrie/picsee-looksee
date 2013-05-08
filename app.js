@@ -27,12 +27,14 @@ var options = {
 				w: 32,
 				h: 32
 			}
-		}, {
+		}, 
+		{
 			"profile": {
 				w: 200,
 				h: null
 			}
-		}, {
+		}, 
+		{
 			"full": {
 				w: null,
 				h: null
@@ -58,7 +60,7 @@ app.configure(function () {
 	app.use(app.router);
 	app.use(express.static(path.join(__dirname, 'public')));
 	/**
-	 * Init picsee
+	 * Initialize picsee
 	 */
 	picsee.initialize(options);
 });
