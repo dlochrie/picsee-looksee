@@ -1,11 +1,10 @@
 /**
  * Module dependencies.
  */
-
-var express = require('express')
-  , http = require('http')
-  , path = require('path')
-	, picsee = require('picsee');
+var express = require('express'),
+	http = require('http'),
+	path = require('path'),
+	picsee = require('picsee');
 
 // Picsee options
 var root = __dirname + '/public/';
@@ -23,12 +22,24 @@ var options = {
 	processDir: processing,
 	uploadDir: uploaded,
 	originalDir: original,
-	versions: [  
-		{ "thmb": { w: 32, h: 32 } },   
-		{ "profile": { w: 200, h: null } },  
-		{ "full": { w: null, h: null } }  
+	versions: [{
+			"thmb": {
+				w: 32,
+				h: 32
+			}
+		}, {
+			"profile": {
+				w: 200,
+				h: null
+			}
+		}, {
+			"full": {
+				w: null,
+				h: null
+			}
+		}
 	],
-	separator: '_',  
+	separator: '_',
 	directories: 'single',
 	namingConvention: 'date',
 	inputFields: ['profPhoto', 'other']
@@ -36,40 +47,46 @@ var options = {
 
 var app = express();
 
-app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
+app.configure(function () {
+	app.set('port', process.env.PORT || 3000);
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'ejs');
+	app.use(express.favicon());
+	app.use(express.logger('dev'));
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(app.router);
+	app.use(express.static(path.join(__dirname, 'public')));
 	/**
 	 * Init picsee
 	 */
 	picsee.initialize(options);
 });
 
-app.configure('development', function(){
-  app.use(express.errorHandler());
+app.configure('development', function () {
+	app.use(express.errorHandler());
 });
 
 /**
  * Show Form
  */
 app.get('/', function (req, res, next) {
-  res.render('index', { title: 'Demo Photo Uploader/Cropper', results: false });
+	res.render('index', {
+		title: 'Demo Photo Uploader/Cropper',
+		results: false
+	});
 });
 
 /**
  * Handle Upload and show Crop Form, or if err, return to Upload
  */
-app.post('/upload', function (req, res, next) { 
-	picsee.upload(req, res, function (err, results) { 
-		if (err) res.send(err); 
-		res.render('crop', { title: 'Crop or Save Photo', results: results || false });
+app.post('/upload', function (req, res, next) {
+	picsee.upload(req, res, function (err, results) {
+		if (err) res.send(err);
+		res.render('crop', {
+			title: 'Crop or Save Photo',
+			results: results || false
+		});
 	})
 });
 
@@ -80,12 +97,17 @@ app.post('/crop', function (req, res, next) {
 	var original = req.body.original || false;
 	picsee.crop(req, res, function (err, results) {
 		if (err) res.send(err);
-		var photos = { versions: results, 
-			original: picsee.getOriginal(original) };
-		res.render('success', { title: 'Success!', results: photos || false });
+		var photos = {
+			versions: results,
+			original: picsee.getOriginal(original)
+		};
+		res.render('success', {
+			title: 'Success!',
+			results: photos || false
+		});
 	});
 });
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+	console.log("Express server listening on port " + app.get('port'));
 });
