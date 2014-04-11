@@ -1,25 +1,25 @@
 <script type="text/javascript">
-$(document).ready(function() {		
-	$('form#upload').ajaxForm({
-		complete: function(data) {
-			$('div.main').html(data.responseText);
-		}
-	}); 
+$(document).ready(function() {
+  $('form#upload').ajaxForm({
+    complete: function(data) {
+      $('div.main').html(data.responseText);
+    }
+  });
 });
 </script>
 
 <p>Use the form below to upload your photo</p>
 <form action="upload" method="post" id="upload" enctype="multipart/form-data">
-	<fieldset>
-		<legend>Choose a File to Upload</legend>
-			<div class="control-group">
-				<label class="control-label" for="inputEmail">Photo</label>
-				<div class="controls">
-					<input type="file" name="profPhoto" placeholder="Choose a file to upload" class="span5" />
-				</div>
-			</div>
-			<div class="form-actions">
-				<input type="submit" name="upload" class="btn btn-primary" value="Upload Photo" />
-			</div>
-	</fieldset>
+  <fieldset>
+    <legend>Choose a File to Upload</legend>
+      <div class="control-group">
+        <label class="control-label" for="inputEmail">Photo</label>
+        <div class="controls">
+          <input type="file" name="profPhoto" placeholder="Choose a file to upload" class="span5" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <input type="submit" name="upload" class="btn btn-primary" value="Upload Photo" />
+      </div>
+  </fieldset>
 </form>

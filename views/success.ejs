@@ -7,15 +7,15 @@
 <h4>Cropped Versions</h4>
 
 <ul class="thumbnails">
-	<% results.versions.forEach(function(result) { %>
-	<li class="span3">
-		<div class="thumbnail">
-			<img src="<%- result.url %>" alt="<%- result.name %>" />
-			<h4><%- result.name %></h4>
-			<p>Saved as: <%- result.path %></p>
-		</div>
-	</li>
-	<% }); %>
+  <% results.versions.forEach(function(result) { %>
+  <li class="span3">
+    <div class="thumbnail">
+      <img src="<%- result.url %>" alt="<%- result.name %>" />
+      <h4><%- result.name %></h4>
+      <p>Saved as: <%- result.path %></p>
+    </div>
+  </li>
+  <% }); %>
 </ul>
 
 <hr />
@@ -23,13 +23,13 @@
 <h4>Original Photo</h4>
 
 <ul class="thumbnails">
-	<li class="span6">
-		<div class="thumbnail">
-			<img src="<%- results.original.url %>" alt="<%- results.original.name %>" />
-			<h4><%- results.original.name %></h4>
-			<p>Saved as: <%- results.original.url %></p>
-		</div>
-	</li>
+  <li class="span6">
+    <div class="thumbnail">
+      <img src="<%- results.original.url %>" alt="<%- results.original.name %>" />
+      <h4><%- results.original.name %></h4>
+      <p>Saved as: <%- results.original.url %></p>
+    </div>
+  </li>
 </ul>
 
 <%- include footer %>
